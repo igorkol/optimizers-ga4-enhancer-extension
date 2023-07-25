@@ -1,0 +1,43 @@
+{
+  "name": "optimizers-ga4-enhancer-extension",
+  "version": "0.0.1",
+  "description": "Chrome extension for GA4 that adds enhancements and optimizations of reports UI",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack --config webpack.dev.js",
+    "watch": "webpack -w --config webpack.dev.js"
+  },
+  "author": "Igor Kolosov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.240",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/sass": "^1.45.0",
+    "@types/sass-loader": "^8.0.5",
+    "@types/webpack": "^5.28.1",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "css-loader": "^3.4.2",
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.33.0",
+    "prettier": "^2.8.0",
+    "prettier-eslint": "^15.0.1",
+    "sass": "^1.63.6",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^0.20.3",
+    "terser-webpack-plugin": "^5.3.9",
+    "ts-loader": "^9.4.4",
+    "typescript": "5.1",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Optimizers GA4 Enhancer",
+  "description": "",
+  "homepage_url": "https://temp.url",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "action": {
+    "default_icon": "icon16.png",
+    "default_popup": "popup.html",
+    "default_title": "Optimizers GA4 Enhancer"
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}

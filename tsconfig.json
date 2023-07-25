@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist/js",
+    "rootDir": "src",
+    "sourceMap": true,
+    "target": "es2020",
+    "noImplicitAny": true
+  },
+  "include": [
+    "src"
+  ],
+  // which files to compile
+  "exclude": [
+    "node_modules"
+  ]
+  // which files to skip
+}
