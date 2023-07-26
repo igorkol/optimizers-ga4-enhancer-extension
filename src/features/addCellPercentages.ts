@@ -1,45 +1,22 @@
-import cleanupStringToNumber from '../helpers/cleanupStringToNumber';
-import insertStringIntoCell from '../helpers/insertStringIntoCell';
+import getTableHeaders from "../helpers/getTableHeaders";
+import getTableRowsAndInsertPercentagesToCells from "../helpers/getTableRowsAndInsertPercentagesToCells";
+import {ALL_TABLE_HEADERS, ALL_TABLE_ROWS, SUMMARY_TOTALS_TABLE_HEADERS} from "../helpers/constants";
 
 export default () => {
-  const getAllTableHeaders = Array.from(
-    window.document.querySelectorAll(
-      'ga-reporting-table thead tr[class*="summary-totals"] th',
-    ),
-  );
-  const getAllTableRows = Array.from(
-    window.document.querySelectorAll('ga-reporting-table tbody tr'),
-  );
-
-  getAllTableHeaders.forEach((header: HTMLElement, i) => {
-    let columnIndex: number;
-    let columnTotal: number;
-    const tableHeaderWithSummaryTotals = header.querySelectorAll(
-      'div[class*="summary-text"]',
+    const getAllTableHeaders = Array.from(
+        window.document.querySelectorAll(ALL_TABLE_HEADERS),
     );
-    tableHeaderWithSummaryTotals.forEach((headerSummary: HTMLElement) => {
-      if (headerSummary.innerText.includes('100%')) {
-        const returnPreviousSibling =
-          headerSummary.previousElementSibling as HTMLElement;
-        const previousSiblingValue = returnPreviousSibling.innerText;
-        const columnSingleSummaryNumber =
-          cleanupStringToNumber(previousSiblingValue);
-        columnIndex = i;
-        columnTotal = columnSingleSummaryNumber;
-      }
+    const getAllTableRows = Array.from(
+        window.document.querySelectorAll(ALL_TABLE_ROWS),
+    );
+
+    getAllTableHeaders.forEach((header: HTMLElement, i) => {
+        const tableHeaderWithSummaryTotals = header.querySelectorAll(SUMMARY_TOTALS_TABLE_HEADERS);
+
+        const {index: columnIndex, total: columnTotal} = getTableHeaders(tableHeaderWithSummaryTotals, i);
+
+        if (columnIndex !== undefined && columnTotal !== undefined) {
+            getTableRowsAndInsertPercentagesToCells(getAllTableRows, columnIndex, columnTotal)
+        }
     });
-    if (columnIndex !== undefined) {
-      getAllTableRows.forEach((row: HTMLElement) => {
-        const targetedCell = row.children[columnIndex] as HTMLElement;
-        const rowSingleColumnNumber = cleanupStringToNumber(
-          targetedCell.innerText,
-        );
-        const calculatePercentageOfTotal = (
-          (rowSingleColumnNumber / columnTotal) *
-          100
-        ).toFixed(2);
-        insertStringIntoCell(targetedCell, calculatePercentageOfTotal);
-      });
-    }
-  });
 };
