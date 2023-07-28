@@ -6,10 +6,10 @@ export default (tableHeaderWithSummaryTotals: NodeListOf<Element>, i: number) =>
     let total: number | undefined;
 
     tableHeaderWithSummaryTotals.forEach((headerSummary: HTMLElement) => {
-        if (headerSummary.innerText.includes(COLUMNS_FOR_PERCENTAGES)) {
+        if (headerSummary.innerHTML.includes(COLUMNS_FOR_PERCENTAGES)) {
             const returnPreviousSibling =
                 headerSummary.previousElementSibling as HTMLElement;
-            const previousSiblingValue = returnPreviousSibling.innerText;
+            const previousSiblingValue = returnPreviousSibling.innerHTML;
             const columnSingleSummaryNumber =
                 cleanupStringToNumber(previousSiblingValue);
             index = i;

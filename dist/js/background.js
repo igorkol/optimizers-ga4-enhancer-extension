@@ -1,1 +1,107 @@
-(()=>{"use strict";var t={805:(t,e)=>{Object.defineProperty(e,"__esModule",{value:!0}),e.getTabId=void 0;e.getTabId=async()=>{const t=await chrome.tabs.query({active:!0,currentWindow:!0});return t.length>0?t[0].id:null}}},e={};function r(n){var s=e[n];if(void 0!==s)return s.exports;var i=e[n]={exports:{}};return t[n](i,i.exports,r),i.exports}(()=>{const t=r(805);chrome.runtime.onMessage.addListener((t=>(t.popupMounted&&e(),!1))),chrome.runtime.onInstalled.addListener((async()=>{const t=await chrome.scripting.getRegisteredContentScripts();t[0]&&await chrome.scripting.unregisterContentScripts({ids:t.map((t=>t.id))}),await chrome.scripting.registerContentScripts([{id:"content",world:"MAIN",js:["js/content.js"],matches:["<all_urls>"]}])}));const e=async()=>{const e=await(0,t.getTabId)();await chrome.scripting.executeScript({target:{tabId:e},files:["js/content.js"]})}})()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/helpers/getTabId.ts":
+/*!*********************************!*\
+  !*** ./src/helpers/getTabId.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getTabId = void 0;
+const getTabId = async () => {
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    console.log('tabs', tabs);
+    return tabs.length > 0 ? tabs[0].id : null;
+};
+exports.getTabId = getTabId;
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+var exports = __webpack_exports__;
+/*!***************************!*\
+  !*** ./src/background.ts ***!
+  \***************************/
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const getTabId_1 = __webpack_require__(/*! ./helpers/getTabId */ "./src/helpers/getTabId.ts");
+// Listen to messages sent from other parts of the extension.
+chrome.runtime.onMessage.addListener(request => {
+    // onMessage must return "true" if response is async.
+    const isResponseAsync = false;
+    if (request.popupMounted) {
+        execScript();
+    }
+    return isResponseAsync;
+});
+chrome.runtime.onInstalled.addListener(async () => {
+    const old = await chrome.scripting.getRegisteredContentScripts();
+    if (old[0])
+        await chrome.scripting.unregisterContentScripts({
+            ids: old.map(s => s.id),
+        });
+    await chrome.scripting.registerContentScripts([
+        {
+            id: 'content',
+            world: 'MAIN',
+            js: ['js/content.js'],
+            matches: ['<all_urls>'],
+        },
+    ]);
+});
+const execScript = async () => {
+    const tabId = await (0, getTabId_1.getTabId)();
+    await chrome.scripting.executeScript({
+        target: { tabId },
+        files: ['js/content.js'],
+    });
+};
+/*const execScript = async () => {
+  const tabId = await getTabId();
+  console.log(tabId);
+  await chrome.scripting.executeScript({
+    target: {tabId: tabId},
+    files: ['features/getDates.js']
+  })
+}
+
+chrome.action.onClicked.addListener(execScript);*/
+
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFja2dyb3VuZC5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBQU8sTUFBTSxRQUFRLEdBQUcsS0FBSyxJQUFJLEVBQUU7SUFDakMsTUFBTSxJQUFJLEdBQUcsTUFBTSxNQUFNLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxFQUFFLE1BQU0sRUFBRSxJQUFJLEVBQUUsYUFBYSxFQUFFLElBQUksRUFBRSxDQUFDLENBQUM7SUFDNUUsT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNLEVBQUUsSUFBSSxDQUFDLENBQUM7SUFDMUIsT0FBTyxJQUFJLENBQUMsTUFBTSxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDO0FBQzdDLENBQUMsQ0FBQztBQUpXLGdCQUFRLFlBSW5COzs7Ozs7O1VDSkY7VUFDQTs7VUFFQTtVQUNBO1VBQ0E7VUFDQTtVQUNBO1VBQ0E7VUFDQTtVQUNBO1VBQ0E7VUFDQTtVQUNBO1VBQ0E7VUFDQTs7VUFFQTtVQUNBOztVQUVBO1VBQ0E7VUFDQTs7Ozs7Ozs7Ozs7O0FDdEJBLDhGQUE4QztBQUU5Qyw2REFBNkQ7QUFDN0QsTUFBTSxDQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsV0FBVyxDQUFDLE9BQU8sQ0FBQyxFQUFFO0lBQzdDLHFEQUFxRDtJQUNyRCxNQUFNLGVBQWUsR0FBRyxLQUFLLENBQUM7SUFFOUIsSUFBSSxPQUFPLENBQUMsWUFBWSxFQUFFO1FBQ3hCLFVBQVUsRUFBRSxDQUFDO0tBQ2Q7SUFFRCxPQUFPLGVBQWUsQ0FBQztBQUN6QixDQUFDLENBQUMsQ0FBQztBQUVILE1BQU0sQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLFdBQVcsQ0FBQyxLQUFLLElBQUksRUFBRTtJQUNoRCxNQUFNLEdBQUcsR0FBRyxNQUFNLE1BQU0sQ0FBQyxTQUFTLENBQUMsMkJBQTJCLEVBQUUsQ0FBQztJQUNqRSxJQUFJLEdBQUcsQ0FBQyxDQUFDLENBQUM7UUFDUixNQUFNLE1BQU0sQ0FBQyxTQUFTLENBQUMsd0JBQXdCLENBQUM7WUFDOUMsR0FBRyxFQUFFLEdBQUcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDO1NBQ3hCLENBQUMsQ0FBQztJQUNMLE1BQU0sTUFBTSxDQUFDLFNBQVMsQ0FBQyxzQkFBc0IsQ0FBQztRQUM1QztZQUNFLEVBQUUsRUFBRSxTQUFTO1lBQ2IsS0FBSyxFQUFFLE1BQU07WUFDYixFQUFFLEVBQUUsQ0FBQyxlQUFlLENBQUM7WUFDckIsT0FBTyxFQUFFLENBQUMsWUFBWSxDQUFDO1NBQ3hCO0tBQ0YsQ0FBQyxDQUFDO0FBQ0wsQ0FBQyxDQUFDLENBQUM7QUFFSCxNQUFNLFVBQVUsR0FBRyxLQUFLLElBQUksRUFBRTtJQUM1QixNQUFNLEtBQUssR0FBRyxNQUFNLHVCQUFRLEdBQUUsQ0FBQztJQUMvQixNQUFNLE1BQU0sQ0FBQyxTQUFTLENBQUMsYUFBYSxDQUFDO1FBQ25DLE1BQU0sRUFBRSxFQUFFLEtBQUssRUFBRTtRQUNqQixLQUFLLEVBQUUsQ0FBQyxlQUFlLENBQUM7S0FDekIsQ0FBQyxDQUFDO0FBQ0wsQ0FBQyxDQUFDO0FBRUY7Ozs7Ozs7OztrREFTa0QiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9vcHRpbWl6ZXJzLWdhNC1lbmhhbmNlci1leHRlbnNpb24vLi9zcmMvaGVscGVycy9nZXRUYWJJZC50cyIsIndlYnBhY2s6Ly9vcHRpbWl6ZXJzLWdhNC1lbmhhbmNlci1leHRlbnNpb24vd2VicGFjay9ib290c3RyYXAiLCJ3ZWJwYWNrOi8vb3B0aW1pemVycy1nYTQtZW5oYW5jZXItZXh0ZW5zaW9uLy4vc3JjL2JhY2tncm91bmQudHMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNvbnN0IGdldFRhYklkID0gYXN5bmMgKCkgPT4ge1xuICBjb25zdCB0YWJzID0gYXdhaXQgY2hyb21lLnRhYnMucXVlcnkoeyBhY3RpdmU6IHRydWUsIGN1cnJlbnRXaW5kb3c6IHRydWUgfSk7XG4gIGNvbnNvbGUubG9nKCd0YWJzJywgdGFicyk7XG4gIHJldHVybiB0YWJzLmxlbmd0aCA+IDAgPyB0YWJzWzBdLmlkIDogbnVsbDtcbn07XG4iLCIvLyBUaGUgbW9kdWxlIGNhY2hlXG52YXIgX193ZWJwYWNrX21vZHVsZV9jYWNoZV9fID0ge307XG5cbi8vIFRoZSByZXF1aXJlIGZ1bmN0aW9uXG5mdW5jdGlvbiBfX3dlYnBhY2tfcmVxdWlyZV9fKG1vZHVsZUlkKSB7XG5cdC8vIENoZWNrIGlmIG1vZHVsZSBpcyBpbiBjYWNoZVxuXHR2YXIgY2FjaGVkTW9kdWxlID0gX193ZWJwYWNrX21vZHVsZV9jYWNoZV9fW21vZHVsZUlkXTtcblx0aWYgKGNhY2hlZE1vZHVsZSAhPT0gdW5kZWZpbmVkKSB7XG5cdFx0cmV0dXJuIGNhY2hlZE1vZHVsZS5leHBvcnRzO1xuXHR9XG5cdC8vIENyZWF0ZSBhIG5ldyBtb2R1bGUgKGFuZCBwdXQgaXQgaW50byB0aGUgY2FjaGUpXG5cdHZhciBtb2R1bGUgPSBfX3dlYnBhY2tfbW9kdWxlX2NhY2hlX19bbW9kdWxlSWRdID0ge1xuXHRcdC8vIG5vIG1vZHVsZS5pZCBuZWVkZWRcblx0XHQvLyBubyBtb2R1bGUubG9hZGVkIG5lZWRlZFxuXHRcdGV4cG9ydHM6IHt9XG5cdH07XG5cblx0Ly8gRXhlY3V0ZSB0aGUgbW9kdWxlIGZ1bmN0aW9uXG5cdF9fd2VicGFja19tb2R1bGVzX19bbW9kdWxlSWRdKG1vZHVsZSwgbW9kdWxlLmV4cG9ydHMsIF9fd2VicGFja19yZXF1aXJlX18pO1xuXG5cdC8vIFJldHVybiB0aGUgZXhwb3J0cyBvZiB0aGUgbW9kdWxlXG5cdHJldHVybiBtb2R1bGUuZXhwb3J0cztcbn1cblxuIiwiaW1wb3J0IHsgZ2V0VGFiSWQgfSBmcm9tICcuL2hlbHBlcnMvZ2V0VGFiSWQnO1xuXG4vLyBMaXN0ZW4gdG8gbWVzc2FnZXMgc2VudCBmcm9tIG90aGVyIHBhcnRzIG9mIHRoZSBleHRlbnNpb24uXG5jaHJvbWUucnVudGltZS5vbk1lc3NhZ2UuYWRkTGlzdGVuZXIocmVxdWVzdCA9PiB7XG4gIC8vIG9uTWVzc2FnZSBtdXN0IHJldHVybiBcInRydWVcIiBpZiByZXNwb25zZSBpcyBhc3luYy5cbiAgY29uc3QgaXNSZXNwb25zZUFzeW5jID0gZmFsc2U7XG5cbiAgaWYgKHJlcXVlc3QucG9wdXBNb3VudGVkKSB7XG4gICAgZXhlY1NjcmlwdCgpO1xuICB9XG5cbiAgcmV0dXJuIGlzUmVzcG9uc2VBc3luYztcbn0pO1xuXG5jaHJvbWUucnVudGltZS5vbkluc3RhbGxlZC5hZGRMaXN0ZW5lcihhc3luYyAoKSA9PiB7XG4gIGNvbnN0IG9sZCA9IGF3YWl0IGNocm9tZS5zY3JpcHRpbmcuZ2V0UmVnaXN0ZXJlZENvbnRlbnRTY3JpcHRzKCk7XG4gIGlmIChvbGRbMF0pXG4gICAgYXdhaXQgY2hyb21lLnNjcmlwdGluZy51bnJlZ2lzdGVyQ29udGVudFNjcmlwdHMoe1xuICAgICAgaWRzOiBvbGQubWFwKHMgPT4gcy5pZCksXG4gICAgfSk7XG4gIGF3YWl0IGNocm9tZS5zY3JpcHRpbmcucmVnaXN0ZXJDb250ZW50U2NyaXB0cyhbXG4gICAge1xuICAgICAgaWQ6ICdjb250ZW50JyxcbiAgICAgIHdvcmxkOiAnTUFJTicsXG4gICAgICBqczogWydqcy9jb250ZW50LmpzJ10sXG4gICAgICBtYXRjaGVzOiBbJzxhbGxfdXJscz4nXSxcbiAgICB9LFxuICBdKTtcbn0pO1xuXG5jb25zdCBleGVjU2NyaXB0ID0gYXN5bmMgKCkgPT4ge1xuICBjb25zdCB0YWJJZCA9IGF3YWl0IGdldFRhYklkKCk7XG4gIGF3YWl0IGNocm9tZS5zY3JpcHRpbmcuZXhlY3V0ZVNjcmlwdCh7XG4gICAgdGFyZ2V0OiB7IHRhYklkIH0sXG4gICAgZmlsZXM6IFsnanMvY29udGVudC5qcyddLFxuICB9KTtcbn07XG5cbi8qY29uc3QgZXhlY1NjcmlwdCA9IGFzeW5jICgpID0+IHtcbiAgY29uc3QgdGFiSWQgPSBhd2FpdCBnZXRUYWJJZCgpO1xuICBjb25zb2xlLmxvZyh0YWJJZCk7XG4gIGF3YWl0IGNocm9tZS5zY3JpcHRpbmcuZXhlY3V0ZVNjcmlwdCh7XG4gICAgdGFyZ2V0OiB7dGFiSWQ6IHRhYklkfSxcbiAgICBmaWxlczogWydmZWF0dXJlcy9nZXREYXRlcy5qcyddXG4gIH0pXG59XG5cbmNocm9tZS5hY3Rpb24ub25DbGlja2VkLmFkZExpc3RlbmVyKGV4ZWNTY3JpcHQpOyovXG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=
