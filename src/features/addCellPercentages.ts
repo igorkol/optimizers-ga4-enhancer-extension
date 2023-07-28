@@ -21,7 +21,7 @@ export default () => {
         const {index: columnIndex, total: columnTotal} = getTableHeaders(tableHeaderWithSummaryTotals, i);
 
         if (columnIndex !== undefined && columnTotal !== undefined) {
-            getTableRowsAndInsertPercentagesToCells(getAllTableRows, columnIndex, columnTotal)
+            getTableRowsAndInsertPercentagesToCells(getAllTableRows, columnIndex, columnTotal, type)
         }
     });
 };
