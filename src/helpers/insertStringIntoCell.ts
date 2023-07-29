@@ -11,6 +11,7 @@ export default (cellOrText: HTMLElement | SVGTextElement, val: string, type: str
 const createSpanElement = (val: string) => {
 	const newElement = document.createElement('span');
 	newElement.setAttribute('style', 'font-size:10px; font-style:italic');
+	newElement.setAttribute('class', 'optimizers-extension');
 	newElement.innerText = `(${val}%)`;
 	return newElement;
 };
@@ -26,7 +27,7 @@ const createSVGElement = (cellOrText: SVGTextElement, val: string) => {
 	newElement.setAttributeNS(null, 'style', 'font: 10px Roboto, sans-serif;');
 	newElement.setAttributeNS(null, 'dx', '13');
 	newElement.setAttributeNS(null, 'dy', '-5');
-	newElement.setAttributeNS(null, 'class', 'align-right');
+	newElement.setAttributeNS(null, 'class', 'align-right optimizers-extension');
 	newElement.textContent = `(${val}%)`;
 	return newElement;
 };
