@@ -1,9 +1,10 @@
 import cleanupStringToNumber from './cleanupStringToNumber';
 import insertStringIntoCell from './insertStringIntoCell';
+import { TABLE_TYPE } from './constants';
 
 export default (getAllTableRows: Element[], columnIndex: number, columnTotal: number, type: string) => {
 	const getTargetedCellOrSvgText = (row: HTMLElement, columnIndex: number, type: string) => {
-		if (type === 'standard') {
+		if (type === TABLE_TYPE.STANDARD_REPORTING) {
 			return row.children[columnIndex] as HTMLElement;
 		} else {
 			if (row.matches(`[column-index="${columnIndex}"]`)) {

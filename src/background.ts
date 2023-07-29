@@ -35,14 +35,3 @@ const execScript = async () => {
 		files: ['js/content.js'],
 	});
 };
-
-/*const execScript = async () => {
-  const tabId = await getTabId();
-  console.log(tabId);
-  await chrome.scripting.executeScript({
-    target: {tabId: tabId},
-    files: ['features/getDates.js']
-  })
-}
-
-chrome.action.onClicked.addListener(execScript);*/

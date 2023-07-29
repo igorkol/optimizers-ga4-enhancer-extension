@@ -1,5 +1,7 @@
+import { CLASS_NAME_ALL_EXTENSION_CHANGES, TABLE_TYPE } from './constants';
+
 export default (cellOrText: HTMLElement | SVGTextElement, val: string, type: string) => {
-	if (type === 'standard') {
+	if (type === TABLE_TYPE.STANDARD_REPORTING) {
 		const newElement = createSpanElement(val);
 		cellOrText.insertBefore(newElement, cellOrText.firstChild);
 	} else {
@@ -11,7 +13,7 @@ export default (cellOrText: HTMLElement | SVGTextElement, val: string, type: str
 const createSpanElement = (val: string) => {
 	const newElement = document.createElement('span');
 	newElement.setAttribute('style', 'font-size:10px; font-style:italic');
-	newElement.setAttribute('class', 'optimizers-extension');
+	newElement.setAttribute('class', CLASS_NAME_ALL_EXTENSION_CHANGES);
 	newElement.innerText = `(${val}%)`;
 	return newElement;
 };
@@ -27,7 +29,7 @@ const createSVGElement = (cellOrText: SVGTextElement, val: string) => {
 	newElement.setAttributeNS(null, 'style', 'font: 10px Roboto, sans-serif;');
 	newElement.setAttributeNS(null, 'dx', '13');
 	newElement.setAttributeNS(null, 'dy', '-5');
-	newElement.setAttributeNS(null, 'class', 'align-right optimizers-extension');
+	newElement.setAttributeNS(null, 'class', `align-right ${CLASS_NAME_ALL_EXTENSION_CHANGES}`);
 	newElement.textContent = `(${val}%)`;
 	return newElement;
 };
