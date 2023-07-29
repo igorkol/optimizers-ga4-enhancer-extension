@@ -19,7 +19,8 @@
   },
   "permissions": [
     "tabs",
-    "scripting"
+    "scripting",
+    "webRequest"
   ],
   "host_permissions": [
     "<all_urls>"
