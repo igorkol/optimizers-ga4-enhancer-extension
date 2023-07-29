@@ -2,12 +2,24 @@ import cleanupStringToNumber from './cleanupStringToNumber';
 import insertStringIntoCell from './insertStringIntoCell';
 
 export default (getAllTableRows: Element[], columnIndex: number, columnTotal: number, type: string) => {
+	const getTargetedCellOrSvgText = (row: HTMLElement, columnIndex: number, type: string) => {
+		if (type === 'standard') {
+			return row.children[columnIndex] as HTMLElement;
+		} else {
+			if (row.matches(`[column-index="${columnIndex}"]`)) {
+				return row.querySelector('text') as SVGTextElement;
+			}
+		}
+		return null;
+	};
+
 	getAllTableRows.forEach((row: HTMLElement) => {
-		const targetedCellOrSvgText = type === 'standard' ? row.children[columnIndex] as HTMLElement : row.matches(`[column-index="${columnIndex}"]`) && row.querySelector('text') as SVGTextElement;
+		const targetedCellOrSvgText = getTargetedCellOrSvgText(row, columnIndex, type);
 
 		if (!targetedCellOrSvgText) {
 			return;
 		}
+
 		const rowSingleColumnNumber = cleanupStringToNumber(
 			targetedCellOrSvgText.innerHTML,
 		);
@@ -19,3 +31,4 @@ export default (getAllTableRows: Element[], columnIndex: number, columnTotal: nu
 		insertStringIntoCell(targetedCellOrSvgText, calculatePercentageOfTotal, type);
 	});
 }
+
