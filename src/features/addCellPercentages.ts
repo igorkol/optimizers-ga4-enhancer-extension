@@ -2,10 +2,13 @@ import getTableHeaders from '../helpers/getTableHeaders';
 import getTableRowsAndInsertPercentagesToCells from '../helpers/getTableRowsAndInsertPercentagesToCells';
 import {
 	STANDARD_REPORT_HEADERS,
-	STANDARD_REPORT_ROWS, CUSTOM_EXPLORATION_TABLE,
-	STANDARD_REPORTING_TABLE,
-	STANDARD_REPORT_SUMMARY_TOTALS, CUSTOM_REPORT_ROWS, CUSTOM_REPORT_HEADERS, CUSTOM_REPORT_SUMMARY_TOTALS,
+	STANDARD_REPORT_ROWS,
+	STANDARD_REPORT_SUMMARY_TOTALS,
+	CUSTOM_REPORT_ROWS,
+	CUSTOM_REPORT_HEADERS,
+	CUSTOM_REPORT_SUMMARY_TOTALS,
 } from '../helpers/constants';
+import getReportingTable from '../helpers/getReportingTable';
 
 export default () => {
 	const { type, element } = getReportingTable();
@@ -24,14 +27,4 @@ export default () => {
 			getTableRowsAndInsertPercentagesToCells(getAllTableRows, columnIndex, columnTotal, type);
 		}
 	});
-};
-
-const getReportingTable = () => {
-	const standardReportingTable = window.document.querySelector(STANDARD_REPORTING_TABLE);
-	const customReportingTable = window.document.querySelector(CUSTOM_EXPLORATION_TABLE);
-
-	if (standardReportingTable) return { 'type': 'standard', 'element': standardReportingTable };
-	if (customReportingTable) return { 'type': 'custom', 'element': customReportingTable };
-
-	return;
 };
