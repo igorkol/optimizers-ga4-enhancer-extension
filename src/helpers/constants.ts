@@ -1,7 +1,6 @@
 // main
 
 export const CLASS_NAME_ALL_EXTENSION_CHANGES = 'optimizers-extension';
-export const SVG_URL_PATH_CUSTOM_EXPLORATIONS = '/vero/arrow_downward.svg'
 
 // percentages feature
 

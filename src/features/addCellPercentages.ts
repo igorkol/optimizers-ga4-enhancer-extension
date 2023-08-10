@@ -26,7 +26,6 @@ export default () => {
 
 		if (columnIndex !== undefined && columnTotal !== undefined) {
 			getTableRowsAndInsertPercentagesToCells(getAllTableRows, columnIndex, columnTotal, type);
-			console.log('added new percentages to cells');
 		}
 	});
 };
