@@ -4,7 +4,7 @@
 import { getCirclePositionWithinChart } from '../helpers/getCirclePositionWithinChart';
 import { calculateClickedPosition } from '../helpers/calculateClickedPosition';
 
-export default () => {
+export const getDates = () => {
 	const timeSeriesChart: HTMLElement = document.querySelector(
 		'.time-series-chart svg',
 	);

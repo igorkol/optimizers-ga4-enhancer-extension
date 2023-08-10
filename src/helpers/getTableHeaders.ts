@@ -1,7 +1,7 @@
-import cleanupStringToNumber from './cleanupStringToNumber';
+import { cleanupStringToNumber } from './cleanupStringToNumber';
 import { COLUMNS_FOR_PERCENTAGES } from './constants';
 
-export default (tableHeaderWithSummaryTotals: NodeListOf<Element>, i: number) => {
+export const getTableHeaders = (tableHeaderWithSummaryTotals: NodeListOf<Element>, i: number) => {
 	let index: number | undefined;
 	let total: number | undefined;
 

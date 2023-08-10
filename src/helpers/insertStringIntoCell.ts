@@ -1,6 +1,6 @@
 import { CLASS_NAME_ALL_EXTENSION_CHANGES, TABLE_TYPE } from './constants';
 
-export default (cellOrText: HTMLElement | SVGTextElement, val: string, type: string) => {
+export const insertStringIntoCell = (cellOrText: HTMLElement | SVGTextElement, val: string, type: string) => {
 	if (type === TABLE_TYPE.STANDARD_REPORTING) {
 		const newElement = createSpanElement(val);
 		cellOrText.insertBefore(newElement, cellOrText.firstChild);

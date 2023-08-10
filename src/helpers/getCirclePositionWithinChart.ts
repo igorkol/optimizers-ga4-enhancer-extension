@@ -13,6 +13,4 @@ export const getCirclePositionWithinChart = (circle: Element) => {
 
 		return { cxNumber, cyNumber, r };
 	}
-
-	return;
 };
