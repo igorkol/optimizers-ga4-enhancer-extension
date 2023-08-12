@@ -20,7 +20,7 @@
   "permissions": [
     "tabs",
     "scripting",
-    "webRequest"
+    "storage"
   ],
   "host_permissions": [
     "<all_urls>"

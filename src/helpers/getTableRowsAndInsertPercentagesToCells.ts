@@ -3,10 +3,8 @@ import { insertStringIntoCell } from './insertStringIntoCell';
 import { TABLE_TYPE } from './constants';
 
 export const getTableRowsAndInsertPercentagesToCells = (getAllTableRows: Element[], columnIndex: number, columnTotal: number, type: string) => {
-
 	getAllTableRows.forEach((row: HTMLElement) => {
 		const targetedCellOrSvgText = getTargetedCellOrSvgText(row, columnIndex, type);
-
 		if (!targetedCellOrSvgText) {
 			return;
 		}
