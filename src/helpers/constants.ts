@@ -1,8 +1,17 @@
+// main
+
+export const CLASS_NAME_ALL_EXTENSION_CHANGES = 'optimizers-extension';
+
 // percentages feature
 
 export const COLUMNS_FOR_PERCENTAGES = '% of total';
 
 /// standard reports
+export enum TABLE_TYPE {
+	STANDARD_REPORTING = 'standard',
+	CUSTOM_EXPLORATION = 'custom',
+}
+
 export const STANDARD_REPORTING_TABLE = 'ga-reporting-table';
 export const STANDARD_REPORT_ROWS = 'tbody tr';
 export const STANDARD_REPORT_HEADERS = 'thead tr[class*="summary-totals"] th';
