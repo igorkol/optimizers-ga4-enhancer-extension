@@ -1,6 +1,8 @@
 // main
 
 export const CLASS_NAME_ALL_EXTENSION_CHANGES = 'optimizers-extension';
+export const GOOGLE_ANALYTICS_URL = 'https://analytics.google.com/*';
+export const PATH_TO_CONTENT_SCRIPT = 'js/content.js';
 
 // percentages feature
 
@@ -14,7 +16,8 @@ export enum TABLE_TYPE {
 
 export const STANDARD_REPORTING_TABLE = 'ga-reporting-table';
 export const STANDARD_REPORT_ROWS = 'tbody tr';
-export const STANDARD_REPORT_HEADERS = 'thead tr[class*="summary-totals"] th';
+export const STANDARD_REPORT_HEADER_NUMBERS = 'thead tr[class*="summary-totals"] th';
+export const STANDARD_REPORT_HEADER_TITLES = 'thead tr[class*="table-header-row"] th';
 export const STANDARD_REPORT_SUMMARY_TOTALS = 'div[class*="summary-text"]';
 
 /// custom reports

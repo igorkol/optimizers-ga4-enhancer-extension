@@ -1,10 +1,11 @@
-import { getTableHeaders } from '../helpers/getTableHeaders';
+import { getTableHeadersWithPercentages } from '../helpers/getTableHeadersWithPercentages';
 import { getTableRowsAndInsertPercentagesToCells } from '../helpers/getTableRowsAndInsertPercentagesToCells';
 import {
 	CUSTOM_REPORT_HEADERS,
 	CUSTOM_REPORT_ROWS,
 	CUSTOM_REPORT_SUMMARY_TOTALS,
-	STANDARD_REPORT_HEADERS,
+	STANDARD_REPORT_HEADER_TITLES,
+	STANDARD_REPORT_HEADER_NUMBERS,
 	STANDARD_REPORT_ROWS,
 	STANDARD_REPORT_SUMMARY_TOTALS,
 	TABLE_TYPE,
@@ -18,21 +19,30 @@ export const addCellPercentages = async (element: Element, type: TABLE_TYPE) => 
 	let processedHeaders = 0;
 	const storageObject = [];
 
-	const getAllTableHeaders = Array.from(
+	const getAllTableHeadersNumbers = Array.from(
 		element.querySelectorAll(
-			type === TABLE_TYPE.STANDARD_REPORTING ? STANDARD_REPORT_HEADERS : CUSTOM_REPORT_HEADERS,
+			type === TABLE_TYPE.STANDARD_REPORTING ? STANDARD_REPORT_HEADER_NUMBERS : CUSTOM_REPORT_HEADERS,
 		),
 	);
 	const getAllTableRows = Array.from(
 		element.querySelectorAll(type === TABLE_TYPE.STANDARD_REPORTING ? STANDARD_REPORT_ROWS : CUSTOM_REPORT_ROWS),
 	);
 
-	if (getAllTableHeaders.length !== 0) {
-		for (const [i, header] of getAllTableHeaders.entries()) {
+	if (getAllTableHeadersNumbers.length !== 0) {
+		for (const [i, header] of getAllTableHeadersNumbers.entries()) {
+			let x = i;
 			const tableHeaderWithSummaryTotals = header.querySelectorAll(
 				type === TABLE_TYPE.STANDARD_REPORTING ? STANDARD_REPORT_SUMMARY_TOTALS : CUSTOM_REPORT_SUMMARY_TOTALS,
 			);
-			const { index: columnIndex, total: columnTotal } = getTableHeaders(tableHeaderWithSummaryTotals, i);
+
+			if (type === TABLE_TYPE.STANDARD_REPORTING) {
+				const getAllTableHeadersTitles = Array.from(element.querySelectorAll(STANDARD_REPORT_HEADER_TITLES))
+				if (getAllTableHeadersTitles.length > getAllTableHeadersNumbers.length) {
+					x++;
+				}
+			}
+
+			const { index: columnIndex, total: columnTotal } = getTableHeadersWithPercentages(x, tableHeaderWithSummaryTotals);
 
 			// saving index and total to local extension storage
 			storageObject.push({
@@ -47,8 +57,9 @@ export const addCellPercentages = async (element: Element, type: TABLE_TYPE) => 
 		}
 		await extensionStorage.set({ optimizersStorage: storageObject });
 	} else {
+		// this is for the custom exploration tables when report is scrolled down and the headers are hidden
 		const storageResult = await new Promise<StorageEntry[]>((resolve) => {
-			extensionStorage.get("optimizersStorage", (result) => {
+			extensionStorage.get('optimizersStorage', (result) => {
 				resolve(result.optimizersStorage);
 			});
 		});
@@ -61,4 +72,3 @@ export const addCellPercentages = async (element: Element, type: TABLE_TYPE) => 
 
 	return processedHeaders;
 };
-
